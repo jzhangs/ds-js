@@ -1,6 +1,4 @@
-'user strict';
-
-const helper = require('./sort_helper');
+'use strict';
 
 function selectionSort(arr, n) {
   n = n || arr.length;
@@ -15,5 +13,4 @@ function selectionSort(arr, n) {
   }
 }
 
-const a = helper.generateRandomArray(5000, 0, 10000);
-helper.testSort('Selection Sort', selectionSort, a);
+module.exports = selectionSort;

@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert');
 const { performance } = require('perf_hooks');
 
@@ -8,6 +10,19 @@ SortHelper.prototype = {
     const arr = [];
     while (n--) {
       arr.push(Math.floor(Math.random() * (max - min)) + min);
+    }
+    return arr;
+  },
+
+  generateNearlyOrderedArray(n, swapTimes) {
+    const arr = [];
+    for (let i = 0; i < n; i++) {
+      arr.push(i);
+    }
+    for (let i = 0; i < swapTimes; i++) {
+      let posx = Math.floor(Math.random() * n);
+      let posy = Math.floor(Math.random() * n);
+      [arr[posx], arr[posy]] = [arr[posy], arr[posx]];
     }
     return arr;
   },
