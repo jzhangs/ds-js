@@ -23,14 +23,27 @@ function _merge(arr, l, mid, r) {
   }
 }
 
+function mergeSortNoOpt(arr, n) {
+  n = n || arr.length;
+
+  function _mergeSort(arr, l, r) {
+    if (l >= r) {
+      return;
+    }
+
+    let mid = Math.floor((l + r) / 2);
+    _mergeSort(arr, l, mid);
+    _mergeSort(arr, mid + 1, r);
+    _merge(arr, l, mid, r);
+  }
+
+  _mergeSort(arr, 0, n - 1);
+}
+
 function mergeSort(arr, n) {
   n = n || arr.length;
 
   function _mergeSort(arr, l, r) {
-    // if (l >= r) {
-    //   return;
-    // }
-
     if (r - l <= 15) {             // 1. optimze for small size array
       insertionSortLR(arr, l, r);
       return;
@@ -46,7 +59,6 @@ function mergeSort(arr, n) {
 
   _mergeSort(arr, 0, n - 1);
 }
-
 //
 function mergeSortBU(arr, n) {
   n = n || arr.length;
@@ -58,4 +70,18 @@ function mergeSortBU(arr, n) {
   }
 }
 
-module.exports = { mergeSort, mergeSortBU };
+function mergeSortBUOpt(arr, n) {
+  n = n || arr.length;
+
+  for (let i = 0; i <n; i+=16) {
+    insertionSortLR(arr, i, Math.min(i+15, n-1));
+  }
+
+  for (let sz = 16; sz <= n; sz += sz) {
+    for (let i = 0; i + sz < n; i += sz + sz) {
+      _merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n-1));
+    }
+  }
+}
+
+module.exports = { mergeSortNoOpt, mergeSort, mergeSortBU, mergeSortBUOpt };

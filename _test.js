@@ -4,7 +4,7 @@ const selectionSort = require('./selection_sort');
 const { insertionSort } = require('./insertion_sort');
 const bubbleSort = require('./bubble_sort');
 const shellSort = require('./shell_sort');
-const { mergeSort, mergeSortBU } = require('./merge_sort');
+const { mergeSort } = require('./merge_sort');
 const { quickSort, quickSort3Ways } = require('./quick_sort');
 const helper = require('./sort_helper');
 
