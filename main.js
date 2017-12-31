@@ -14,8 +14,7 @@ let arr4 = [...arr1];
 console.info(`Test for random array, size = ${n}, random range [0, ${n}]`);
 helper.testSort('   Insertion Sort', insertionSort, arr1);
 helper.testSort('   Selection Sort', selectionSort, arr2);
-helper.testSort('   Bubble Sort Opt', bubbleSort.opt, arr3);
-helper.testSort('   Bubble Sort Not Opt', bubbleSort.noOpt, arr4);
+helper.testSort('   Bubble Sort Opt', bubbleSort, arr3);
 
 arr1 = helper.generateRandomArray(10000, 0, 3);
 arr2 = [...arr1];
@@ -25,8 +24,7 @@ arr4 = [...arr1];
 console.info(`\nTest for more ordered array, size = ${n}, random range [0, 3]`);
 helper.testSort('   Insertion Sort', insertionSort, arr1);
 helper.testSort('   Selection Sort', selectionSort, arr2);
-helper.testSort('   Bubble Sort Opt', bubbleSort.opt, arr3);
-helper.testSort('   Bubble Sort Not Opt', bubbleSort.noOpt, arr4);
+helper.testSort('   Bubble Sort Opt', bubbleSort, arr3);
 
 const swapTimes = 100;
 arr1 = helper.generateNearlyOrderedArray(n, swapTimes);
@@ -37,5 +35,4 @@ arr4 = [...arr1];
 console.info(`\nTest for nearly ordered array, size = ${n}, swap times = ${swapTimes}`);
 helper.testSort('   Insertion Sort', insertionSort, arr1);
 helper.testSort('   Selection Sort', selectionSort, arr2);
-helper.testSort('   Bubble Sort Opt', bubbleSort.opt, arr3);
-helper.testSort('   Bubble Sort Not Opt', bubbleSort.noOpt, arr4);
+helper.testSort('   Bubble Sort Opt', bubbleSort, arr3);
