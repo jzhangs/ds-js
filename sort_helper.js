@@ -14,10 +14,11 @@ SortHelper.prototype = {
     return arr;
   },
 
-  generateNearlyOrderedArray(n, swapTimes) {
+  generateNearlyOrderedArray(n, swapTimes, reverse) {
     const arr = [];
     for (let i = 0; i < n; i++) {
-      arr.push(i);
+      // arr.push(i);
+      arr.push(reverse ? n - i : i);
     }
     for (let i = 0; i < swapTimes; i++) {
       let posx = Math.floor(Math.random() * n);
@@ -31,7 +32,7 @@ SortHelper.prototype = {
     const begin = performance.now();
     sort(arr);
     const end = performance.now();
-    assert(this.isSorted(arr))
+    assert(this.isSorted(arr));
     console.info(`${sortName}: ${arr.length} items sorted in ${end - begin} ms.`);
   },
 
