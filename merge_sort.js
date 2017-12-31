@@ -1,6 +1,6 @@
 'use strict';
 
-const { insertionSort, insertionSortLR } = require('./insertion_sort');
+const { insertionSortLR } = require('./insertion_sort');
 
 function _merge(arr, l, mid, r) {
   const aux = arr.slice(l, r + 1);
@@ -31,7 +31,7 @@ function mergeSort(arr, n) {
     //   return;
     // }
 
-    if (r - l <= 15) {             // 2. optimze for small size array
+    if (r - l <= 15) {             // 1. optimze for small size array
       insertionSortLR(arr, l, r);
       return;
     }
@@ -39,7 +39,7 @@ function mergeSort(arr, n) {
     let mid = Math.floor((l + r) / 2);
     _mergeSort(arr, l, mid);
     _mergeSort(arr, mid + 1, r);
-    if (arr[mid] > arr[mid + 1]) {  // 1. optimze for nearly ordered array
+    if (arr[mid] > arr[mid + 1]) {  // 2. optimze for nearly ordered array
       _merge(arr, l, mid, r);
     }
   }
@@ -47,7 +47,7 @@ function mergeSort(arr, n) {
   _mergeSort(arr, 0, n - 1);
 }
 
-// bottom up
+//
 function mergeSortBU(arr, n) {
   n = n || arr.length;
 
