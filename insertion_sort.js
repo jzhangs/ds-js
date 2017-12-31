@@ -33,7 +33,9 @@ function insertionSort(arr, n) {
 }
 
 function insertionSortLR(arr, l, r) {
-  for (let i = l + 1; i < r; i++) {
+  l = l || 0;
+  r = r || arr.length - 1;
+  for (let i = l + 1; i <= r; i++) {
     const e = arr[i];
     let j;
     for (j = i; j > l && arr[j - 1] > e; j--) {

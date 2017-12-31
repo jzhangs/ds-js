@@ -32,7 +32,7 @@ SortHelper.prototype = {
     const begin = performance.now();
     sort(arr);
     const end = performance.now();
-    // assert(this.isSorted(arr));
+    assert(this.isSorted(arr));
     console.info(`    ${sortName}: ${arr.length} items sorted in ${end - begin} ms.`);
   },
 
@@ -41,6 +41,7 @@ SortHelper.prototype = {
     for (let i = 0; i < len - 1; i++) {
       if (arr[i] > arr[i + 1]) {
         // console.info(i, arr[i], arr[i+1]);
+        // return true;
         return false;
       }
     }

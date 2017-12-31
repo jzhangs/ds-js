@@ -34,7 +34,7 @@ helper.testSort('Insertion Sort', insertionSort, arr1);
 helper.testSort('Shell Sort', shellSort, arr4);
 helper.testSort('Merge Sort', mergeSort, arr5);
 
-const swapTimes = 10;
+const swapTimes = 100;
 arr1 = helper.generateNearlyOrderedArray(n, swapTimes);
 arr2 = [...arr1];
 arr3 = [...arr1];

@@ -1,30 +1,30 @@
 'use strict';
 
-const { insertionSortLR } = require('./insertion_sort');
+const { insertionSort, insertionSortLR } = require('./insertion_sort');
+
+function _merge(arr, l, mid, r) {
+  const aux = arr.slice(l, r + 1);
+
+  let i = l, j = mid + 1;
+  for (let k = l; k <= r; k++) {
+    if (i > mid) {
+      arr[k] = aux[j - l];
+      j++;
+    } else if (j > r) {
+      arr[k] = aux[i - l];
+      i++;
+    } else if (aux[i - l] < aux[j - l]) {
+      arr[k] = aux[i - l];
+      i++;
+    } else {
+      arr[k] = aux[j - l];
+      j++;
+    }
+  }
+}
 
 function mergeSort(arr, n) {
   n = n || arr.length;
-
-  function _merge(arr, l, mid, r) {
-    const aux = arr.slice(l, r);
-
-    let i = l, j = mid + 1;
-    for (let k = l; k <= r; k++) {
-      if (i > mid) {
-        arr[k] = aux[j - l];
-        j++;
-      } else if (j > r) {
-        arr[k] = aux[i - l];
-        i++;
-      } else if (aux[i - l] < aux[j - l]) {
-        arr[k] = aux[i - l];
-        i++;
-      } else {
-        arr[k] = aux[j - l];
-        j++;
-      }
-    }
-  }
 
   function _mergeSort(arr, l, r) {
     // if (l >= r) {
@@ -47,29 +47,9 @@ function mergeSort(arr, n) {
   _mergeSort(arr, 0, n - 1);
 }
 
+// bottom up
 function mergeSortBU(arr, n) {
   n = n || arr.length;
-
-  function _merge(arr, l, mid, r) {
-    const aux = arr.slice(l, r);
-
-    let i = l, j = mid + 1;
-    for (let k = l; k <= r; k++) {
-      if (i > mid) {
-        arr[k] = aux[j - l];
-        j++;
-      } else if (j > r) {
-        arr[k] = aux[i - l];
-        i++;
-      } else if (aux[i - l] < aux[j - l]) {
-        arr[k] = aux[i - l];
-        i++;
-      } else {
-        arr[k] = aux[j - l];
-        j++;
-      }
-    }
-  }
 
   for (let sz = 1; sz <= n; sz += sz) {
     for (let i = 0; i + sz < n; i += sz + sz) {
