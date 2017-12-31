@@ -32,4 +32,15 @@ function insertionSort(arr, n) {
   }
 }
 
-module.exports = insertionSort;
+function insertionSortLR(arr, l, r) {
+  for (let i = l + 1; i < r; i++) {
+    const e = arr[i];
+    let j;
+    for (j = i; j > l && arr[j - 1] > e; j--) {
+      arr[j] = arr[j - 1];
+    }
+    arr[j] = e;
+  }
+}
+
+module.exports = { insertionSort, insertionSortLR };
