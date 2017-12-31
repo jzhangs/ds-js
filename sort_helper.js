@@ -40,6 +40,7 @@ SortHelper.prototype = {
     len = len || arr.length;
     for (let i = 0; i < len - 1; i++) {
       if (arr[i] > arr[i + 1]) {
+        // console.info(i, arr[i], arr[i+1]);
         return false;
       }
     }
