@@ -9,9 +9,9 @@ function _swap(arr, i, j) {
   arr[j] = _t;
 }
 
-function _pref(func, args) {
+function _pref(func, ...args) {
   let begin = performance.now();
-  let result = func(args);
+  let result = func(...args);
   let end = performance.now();
   return { result, time: end - begin };
 }

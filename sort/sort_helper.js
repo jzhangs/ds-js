@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const { performance } = require('perf_hooks');
+const { _swap } = require('./util');
 
 const SortHelper = function() {};
 
@@ -46,6 +47,13 @@ SortHelper.prototype = {
       }
     }
     return true;
+  },
+
+  shuffleArr(arr, n) {
+    n = n || arr.length;
+    for (let i = 0; i < n; i++) {
+      _swap(arr, i, Math.floor(Math.random() * n))
+    }
   }
 }
 
