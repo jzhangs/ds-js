@@ -33,7 +33,7 @@ SortHelper.prototype = {
     sort(arr);
     const end = performance.now();
     assert(this.isSorted(arr));
-    console.info(`${sortName}: ${arr.length} items sorted in ${end - begin} ms.`);
+    console.info(`    ${sortName}: ${arr.length} items sorted in ${end - begin} ms.`);
   },
 
   isSorted(arr, len) {
