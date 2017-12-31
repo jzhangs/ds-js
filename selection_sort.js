@@ -1,5 +1,7 @@
 'use strict';
 
+const { _swap } = require('./util');
+
 function selectionSort(arr, n) {
   n = n || arr.length;
   for (let i = 0; i < n; i++) {
@@ -9,7 +11,8 @@ function selectionSort(arr, n) {
         minIndex = j;
       }
     }
-    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    // [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    _swap(arr, i, minIndex);
   }
 }
 
@@ -20,7 +23,8 @@ function selectionSortOpt(arr, n) {
     let minIndex = left;
     let maxIndex = right;
     if (arr[minIndex] > arr[maxIndex]) {
-      [arr[minIndex], arr[maxIndex]] = [arr[maxIndex], arr[minIndex]];
+      // [arr[minIndex], arr[maxIndex]] = [arr[maxIndex], arr[minIndex]];
+      _swap(arr, minIndex, maxIndex);
     }
 
     for (let i = left; i <= right; i++) {
@@ -32,8 +36,10 @@ function selectionSortOpt(arr, n) {
       }
     }
 
-    [arr[left], arr[minIndex]] = [arr[minIndex], arr[left]];
-    [arr[right], arr[maxIndex]] = [arr[maxIndex], arr[right]];
+    // [arr[left], arr[minIndex]] = [arr[minIndex], arr[left]];
+    // [arr[right], arr[maxIndex]] = [arr[maxIndex], arr[right]];
+    _swap(arr, left, minIndex);
+    _swap(arr, right, maxIndex);
     left++;
     right--;
   }
