@@ -40,7 +40,7 @@ function heapSort(arr, n) {
     _shiftDown(arr, i, 0);
   }
 
-  function _shiftDown(arr, n, k) {
+  function _shiftDownOld(arr, n, k) {
     while (k * 2 + 1 < n) {
       let j = k * 2 + 1;
       if (j + 1 < n && arr[j + 1] > arr[j]) {
@@ -53,6 +53,22 @@ function heapSort(arr, n) {
       _swap(arr, k, j);
       k = j;
     }
+  }
+
+  function _shiftDown(arr, n, k) {
+    const e = arr[k];
+    while (k * 2 + 1 < n) {
+      let j = k * 2 + 1;
+      if (j + 1 < n && arr[j + 1] > arr[j]) {
+        j += 1;
+      }
+      if (e >= arr[j]) {  // important !!
+        break;
+      }
+      arr[k] = arr[j];
+      k = j;
+    }
+    arr[k] = e;
   }
 }
 

@@ -42,7 +42,6 @@ class MaxHeap {
       if (data[k] >= data[j]) {
         break;
       }
-      // TODO, optimize this using assignment, not swap;
       _swap(data, k, j);
       k = j;
     }
