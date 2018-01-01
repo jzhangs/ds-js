@@ -2,7 +2,9 @@
 
 const assert = require('assert');
 const { MaxHeap, MaxHeapO } = require('./maxheap');
+const { MinHeap } = require('./minheap');
 const IndexMaxHeap = require('./index_maxheap');
+const IndexMinHeap = require('./index_minheap');
 const { _swap } = require('../util');
 
 function heapSort1(arr, n) {
@@ -28,6 +30,19 @@ function heapSort1O(arr, n) {
 
   for (let i = n - 1; i >= 0; i--) {
     arr[i] = maxheap.extractMax();
+  }
+}
+
+function heapSort1Min(arr, n) {
+  n = n || arr.length;
+
+  let minheap = new MinHeap(n);
+  for (let i = 0; i < n; i++) {
+    minheap.insert(arr[i]);
+  }
+
+  for (let i = 0; i < n; i++) {
+    arr[i] = minheap.extractMin();
   }
 }
 
@@ -87,19 +102,38 @@ function heapSort(arr, n) {
   }
 }
 
-function heapSortIMP(arr, n) {
+function heapSortIMaxH(arr, n) {
   n = n || arr.length;
 
-  let imp = new IndexMaxHeap(n);
+  let heap = new IndexMaxHeap(n);
   for (let i = 0; i < n; i++) {
-    imp.insert(i, arr[i]);
+    heap.insert(i, arr[i]);
   }
 
-  assert(imp.testIndexes());
+  assert(heap.testIndexes());
 
   for (let i = n - 1; i >= 0; i--) {
-    arr[i] = imp.extractMax();
+    arr[i] = heap.extractMax();
   }
 }
 
-module.exports = { heapSort1, heapSort1O, heapSort2, heapSort, heapSortIMP };
+function heapSortIMinH(arr, n) {
+  n = n || arr.length;
+
+  let heap = new IndexMinHeap(n);
+  for (let i = 0; i < n; i++) {
+    heap.insert(i, arr[i]);
+  }
+
+  assert(heap.testIndexes());
+
+  for (let i = 0; i < n; i++) {
+    arr[i] = heap.extractMin();
+  }
+}
+
+module.exports = { 
+  heapSort1, heapSort1O, heapSort1Min,
+  heapSort2, heapSort, heapSortIMaxH,
+  heapSortIMinH
+};
