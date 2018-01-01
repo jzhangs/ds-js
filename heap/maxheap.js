@@ -4,19 +4,30 @@ const assert = require('assert');
 const { _swap } = require('../util');
 
 class MaxHeap {
-  constructor(capacity) {
-    this.data = new Array(capacity + 1);
-    this.count = 0;
-    this.capacity = capacity;
+  constructor(n) {
+    if (typeof n === 'number') {
+      this.capacity = n;
+      this.count = 0;
+      this.data = new Array(n + 1);
+    } else if (Array.isArray(n)) {
+      this.capacity = n.length;
+      this.count = this.capacity;
+      this.data = [0, ...n];
+      // heapify
+      for (let i = Math.floor(this.count / 2) ; i >= 1; i--) {
+        this._shiftDown(i);
+      }
+    }
   }
 
   _shiftUp(k) {
+    const { data } = this;
     while (k > 1) {
       let p = Math.floor(k / 2);
-      if (this.data[p] >= this.data[k]) {
+      if (data[p] >= data[k]) {
         break;
       }
-      _swap(this.data, p, k);
+      _swap(data, p, k);
       k = p;
     }
   }
