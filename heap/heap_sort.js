@@ -1,6 +1,8 @@
 'use strict';
 
+const assert = require('assert');
 const MaxHeap = require('./maxheap');
+const IndexMaxHeap = require('./index_maxheap');
 const { _swap } = require('../util');
 
 function heapSort1(arr, n) {
@@ -72,4 +74,19 @@ function heapSort(arr, n) {
   }
 }
 
-module.exports = { heapSort1, heapSort2, heapSort };
+function heapSortIMP(arr, n) {
+  n = n || arr.length;
+
+  let imp = new IndexMaxHeap(n);
+  for (let i = 0; i < n; i++) {
+    imp.insert(i, arr[i]);
+  }
+
+  assert(imp.testIndexes());
+
+  for (let i = n - 1; i >= 0; i--) {
+    arr[i] = imp.extractMax();
+  }
+}
+
+module.exports = { heapSort1, heapSort2, heapSort, heapSortIMP };

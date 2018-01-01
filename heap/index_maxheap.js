@@ -8,7 +8,7 @@ class IndexMaxHeap {
     this.capacity = n;
     this.count = 0;
     this.data = new Array(n + 1);
-    this.indexes = new Arrary(n + 1);
+    this.indexes = new Array(n + 1);
     this.reverse = [].fill.call(new Array(n + 1), 0);
   }
 
@@ -65,7 +65,7 @@ class IndexMaxHeap {
     assert(this.count > 0);
 
     const { data, indexes, reverse } = this;
-    let ret = data[indexs[1]];
+    let ret = data[indexes[1]];
     _swap(indexes, 1, this.count);
     reverse[indexes[1]] = 1;
     reverse[indexes[this.count]] = 0;
@@ -113,6 +113,31 @@ class IndexMaxHeap {
     let j = reverse[i];
     this._shiftUp(j);
     this._shiftDown(j);
+  }
+
+  testIndexes() {
+    let copyIndexes = [...this.indexes];
+    let copyReverse = [...this.reverse];
+    copyIndexes[0] = copyReverse[0] = 0;
+    copyIndexes.sort((a, b) => (a - b));
+    copyReverse.sort((a, b) => (a - b));
+
+    // console.info(this.indexes.slice(1));
+    // console.info(this.reverse.slice(1));
+
+    for (let i = 1; i <= this.count; i++) {
+      if (copyIndexes[i - 1] + 1 !== copyIndexes[i] ||
+          copyReverse[i - 1] + 1 !== copyReverse[i]) {
+        return false;
+      }
+    }
+
+    for (let i = 1; i <= this.count; i++) {
+      if (this.reverse[this.indexes[i]] !== i) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
