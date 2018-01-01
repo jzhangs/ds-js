@@ -1,9 +1,9 @@
 'use strict';
 
-const MaxHeap = require('./maxheap');
+const { MaxHeap, MaxHeapO} = require('./maxheap');
 const helper = require('./heap_helper');
 const sortHelper = require('../sort/sort_helper');
-const { heapSortIMP } = require('./heap_sort');
+const { heapSort1, heapSort1O, heapSortIMP } = require('./heap_sort');
 
 // let maxheap = new MaxHeap(100);
 
@@ -19,6 +19,10 @@ const { heapSortIMP } = require('./heap_sort');
 
 // helper.print(maxheap);
 
-const n = 100000;
-let arr = sortHelper.generateRandomArray(n, 0, n);
-sortHelper.testSort('Heap Sort Using Index-Max-Heap', heapSortIMP, arr);
+const n = 1000000;
+let arr1 = sortHelper.generateRandomArray(n, 0, n);
+let arr2 = [...arr1];
+let arr3 = [...arr1];
+// sortHelper.testSort('Heap Sort Using Index-Max-Heap', heapSortIMP, arr1);
+sortHelper.testSort('Heap Sort 1          ', heapSort1, arr2);
+sortHelper.testSort('Heap Sort 1 Optimized', heapSort1O, arr3);
