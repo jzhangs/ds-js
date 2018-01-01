@@ -50,7 +50,7 @@ function invNumMerge(arr, n) {
 }
 
 const helper = require('./sort_helper');
-const { _pref } = require('./util');
+const { _pref } = require('../util');
 
 const n = 10000;
 const swapTimes = 10;

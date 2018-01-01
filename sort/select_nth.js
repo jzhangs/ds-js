@@ -1,5 +1,5 @@
 const { quickSort } = require('./quick_sort');
-const { _swap } = require('./util');
+const { _swap } = require('../util');
 
 function selectNthSort(arr, nth) {
   quickSort(arr);
@@ -39,7 +39,7 @@ function selectNthDivide(arr, nth) {
 }
 
 const helper = require('./sort_helper');
-const { _pref } = require('./util');
+const { _pref } = require('../util');
 
 const n = 1000000;
 let arr1 = helper.generateNearlyOrderedArray(n, 0);

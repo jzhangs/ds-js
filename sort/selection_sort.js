@@ -1,6 +1,6 @@
 'use strict';
 
-const { _swap } = require('./util');
+const { _swap } = require('../util');
 
 function selectionSort(arr, n) {
   n = n || arr.length;

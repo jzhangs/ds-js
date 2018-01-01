@@ -1,6 +1,6 @@
 'use strict';
 
-const { _swap } = require('./util');
+const { _swap } = require('../util');
 const { insertionSortLR } = require('./insertion_sort');
 
 function quickSort(arr, n) {

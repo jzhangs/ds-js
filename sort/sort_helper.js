@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 const { performance } = require('perf_hooks');
-const { _swap } = require('./util');
+const { _swap } = require('../util');
 
 const SortHelper = function() {};
 
