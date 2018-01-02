@@ -1,5 +1,7 @@
 'use strict';
 
+const assert = require('assert');
+
 function Node(key, value) {
   this.key = key;
   this.value = value;
@@ -25,7 +27,6 @@ class BST {
   }
 
   _insert(node, key, value) {
-    // console.info('_insert', node);
     if (node === null) {
       this.count++;
       return new Node(key, value);
@@ -41,73 +42,68 @@ class BST {
   }
 
   contain(key) {
-    return this._contain(this.root, key);
-  }
-
-  _contain(node, key) {
-    if (node === null) {
-      return false;
+    function _contain(node, key) {
+      if (node === null) {
+        return false;
+      }
+      if (key === node.key) {
+        return true;
+      } if (key < node.key) {
+        return _contain(node.left, key);
+      } else {
+        return _contain(node.right, key);
+      }
     }
-    if (key === node.key) {
-      return true;
-    } if (key < node.key) {
-      return this._contain(node.left, key);
-    } else {
-      return this._contain(node.right, key);
-    }
+    return _contain(this.root, key);
   }
 
   search(key) {
-    return this._search(this.root, key);
-  }
-
-  _search(node, key) {
-    if (node === null) {
-      return null;
+    function _search(node, key) {
+      if (node === null) {
+        return null;
+      }
+      if (key === node.key) {
+        return node;  // may return 'value' if we have pointer.
+      } if (key < node.key) {
+        return _search(node.left, key);
+      } else {
+        return _search(node.right, key);
+      }
     }
-    if (key === node.key) {
-      return node;  // may return 'value' if we have pointer.
-    } if (key < node.key) {
-      return this._search(node.left, key);
-    } else {
-      return this._search(node.right, key);
-    }
+    return _search(this.root, key);
   }
 
   preOrder(visit) {
-    this._preOrder(this.root, visit);
-  }
-
-  _preOrder(node, visit) {
-    if (node) {
-      visit(node.key);
-      this._preOrder(node.left, visit);
-      this._preOrder(node.right, visit);
+    function _preOrder(node, visit) {
+      if (node) {
+        visit(node.key);
+        _preOrder(node.left, visit);
+        _preOrder(node.right, visit);
+      }
     }
+    _preOrder(this.root, visit);
   }
 
   inOrder(visit) {
-    this._inOrder(this.root, visit);
-  }
-
-  _inOrder(node, visit) {
-    if (node) {
-      this._inOrder(node.left, visit);
-      visit(node.key);
-      this._inOrder(node.right, visit);
+    function _inOrder(node, visit) {
+      if (node) {
+        _inOrder(node.left, visit);
+        visit(node.key);
+        _inOrder(node.right, visit);
+      }
     }
+    _inOrder(this.root, visit);
   }
 
   postOrder(visit) {
-    this._postOrder(this.root, visit);
-  }
-
-  _postOrder(node, visit) {
-    if (node) {
-      this._postOrder(node.left, visit);
-      this._postOrder(node.right, visit);
-      visit(node.key);
+    function _postOrder(node, visit) {
+      if (node) {
+        _postOrder(node.left, visit);
+        _postOrder(node.right, visit);
+        visit(node.key);
+      }
     }
+    _postOrder(this.root, visit);
   }
 
   levelOrder(visit) {
@@ -132,6 +128,101 @@ class BST {
   //     this.count--;
   //   }
   // }
+
+  min() {
+    assert(this.count !== 0);
+    return  this._min(this.root).key;
+  }
+
+  _min(node) {
+    if (!node.left) {
+      return node;
+    }
+    return this._min(node.left);
+  }
+
+  max() {
+    function _max(node) {
+      if (!node.right) {
+        return node;
+      }
+      return _max(node.right);
+    }
+    assert(this.count !== 0);
+    return _max(this.root).key;
+  }
+
+  removeMin() {
+    if (this.root) {
+      this.root = this._removeMin(this.root);
+    }
+  }
+
+  _removeMin(node) {
+    if (!node.left) {
+      let right = node.right;
+      // node = null;
+      this.count--;
+      return right;
+    }
+    node.left = this._removeMin(node.left);
+    return node;
+  }
+
+  removeMax() {
+    if (this.root) {
+      this.root = this._removeMax(this.root);
+    }
+  }
+
+  _removeMax(node) {
+    if (!node.right) {
+      let left = node.left;
+      // node = null;
+      this.count--;
+      return left;
+    }
+    node.right = this._removeMax(node.right);
+    return node;
+  }
+  
+  remove(key) {
+    this.root = this._remove(this.root, key);
+  }
+
+  _remove(node, key) {
+    if (!node) {
+      return null;
+    }
+
+    if (key < node.key) {
+      node.left = this._remove(node.left, key);
+      return node;
+    } else if (key > node.key) {
+      node.right = this._remove(node.right, key);
+      return node;
+    } else {  // key === node.key
+      if (!node.left) {
+        const right = node.right;
+        // node = null;
+        this.count--;
+        return right;
+      }
+
+      if (!node.right) {
+        const left = node.left;
+        // node = null;
+        this.count--;
+        return left;
+      }
+
+      // node.left !== null and node.right !== null
+      const successor = this._min(node.right);
+      successor.right = this._removeMin(node.right); // this.count-- in removeMin
+      successor.left = node.left;
+      return successor;
+    }
+  }
 
 }
 

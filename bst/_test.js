@@ -19,4 +19,19 @@ const SST = require('./sst');
 // helper.testTreeSearch('BST', BST, words, word);
 // helper.testTreeSearch('SST', SST, words, word);
 
-helper.testTraverse('BST', BST);
+let t;
+// t = helper.generateTree(BST, 10, 100);
+// helper.testTraverse(t);
+
+// t = helper.generateTree(BST, 100);
+// helper.testRemoveMin(t);
+
+// t = helper.generateTree(BST, 100);
+// helper.testRemoveMax(t);
+
+const n = 10000;
+const order = helper.generateRandomOrder(n);
+t = helper.generateTree(BST, n);
+// t.preOrder((v) => { process.stdout.write(`${v} `) });
+// t.inOrder((v) => { process.stdout.write(`${v} `) });
+helper.testRemove(t, order);

@@ -3,10 +3,11 @@
 const assert = require('assert');
 const fs = require('fs');
 const { performance } = require('perf_hooks');
+const { _swap } = require('../util');
 
-const SearchHelper = function () { };
+const TreeHelper = function () { };
 
-SearchHelper.prototype = {
+TreeHelper.prototype = {
   generateOrderArray(n) {
     const arr = [];
     for (let i = 0; i < n; i++) {
@@ -24,6 +25,33 @@ SearchHelper.prototype = {
       words.push(...arr);
     });
     return words;
+  },
+
+  generateTree(Tree, n = 10, m) {
+    m = m || n;
+    const t = new Tree();
+    for (let i = 0; i < n; i++) {
+      let key = Math.floor(Math.random() * m);
+      let value = key;
+      t.insert(key, value);
+    }
+    return t;
+  },
+
+  generateRandomOrder(n) {
+    function shuffle(arr, n) {
+      n = n || arr.length;
+      for (let i = n - 1; i >= 0; i--) {
+        let x = Math.floor(Math.random() * (i + 1));
+        _swap(arr, i, x);
+      }
+      return arr;
+    }
+    const order = [];
+    for (let i = 0; i < n; i++) {
+      order.push(i);
+    }
+    return shuffle(order);
   },
 
   testSearch(searchName, search, arr) {
@@ -62,18 +90,8 @@ SearchHelper.prototype = {
     console.info(`    ${treeName}, time: ${end - begin} ms.`);
   },
 
-  testTraverse(treeName, Tree) {
-    const t = new Tree();
-
-    const N = 10;
-    const M = 100;
-    for (let i = 0; i < N; i++) {
-      let key = Math.floor(Math.random() * M);
-      let value = key;
-      process.stdout.write(`${key} `);
-      t.insert(key, value);
-    }
-    console.info(`\nsize: ${t.size()}`);
+  testTraverse(t) {
+    console.info(`size: ${t.size()}`);
     process.stdout.write('preOrder   : ');
     t.preOrder((v) => { process.stdout.write(`${v} `) });
     console.info('');
@@ -89,7 +107,36 @@ SearchHelper.prototype = {
     process.stdout.write('levelOrder : ');
     t.levelOrder((v) => { process.stdout.write(`${v} `) });
     console.info('');
+  },
+
+  testRemoveMin(t) {
+    console.info('Test removeMin:');
+    while (!t.isEmpty()) {
+      process.stdout.write(`min: ${t.min()} , `);
+      t.removeMin();
+      process.stdout.write(`after removeMin, size = ${t.size()}\n`);
+    }
+  },
+
+  testRemoveMax(t) {
+    console.info('Test removeMax:');
+    while (!t.isEmpty()) {
+      process.stdout.write(`max: ${t.max()} , `);
+      t.removeMax();
+      process.stdout.write(`after removeMax, size = ${t.size()}\n`);
+    }
+  },
+
+  testRemove(t, order) {
+    const n = order.length;
+    for (let i = 0; i < n; i++) {
+      if (t.contain(order[i])) {
+        t.remove(order[i]);
+        console.info(`\nAfter remove ${order[i]}, size = ${t.size()}.`);
+      }
+    }
+    console.info(`End: ${t.size()}`);
   }
 }
 
-module.exports = new SearchHelper();
+module.exports = new TreeHelper();
