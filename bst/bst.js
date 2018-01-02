@@ -142,14 +142,15 @@ class BST {
   }
 
   max() {
-    function _max(node) {
-      if (!node.right) {
-        return node;
-      }
-      return _max(node.right);
-    }
     assert(this.count !== 0);
-    return _max(this.root).key;
+    return this._max(this.root).key;
+  }
+
+  _max(node) {
+    if (!node.right) {
+      return node;
+    }
+    return this._max(node.right);
   }
 
   removeMin() {

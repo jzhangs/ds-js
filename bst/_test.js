@@ -29,9 +29,18 @@ let t;
 // t = helper.generateTree(BST, 100);
 // helper.testRemoveMax(t);
 
-const n = 10000;
-const order = helper.generateRandomOrder(n);
-t = helper.generateTree(BST, n);
-// t.preOrder((v) => { process.stdout.write(`${v} `) });
-// t.inOrder((v) => { process.stdout.write(`${v} `) });
-helper.testRemove(t, order);
+// const n = 10000;
+// const order = helper.generateRandomOrder(n);
+// t = helper.generateTree(BST, n);
+// // t.preOrder((v) => { process.stdout.write(`${v} `) });
+// // t.inOrder((v) => { process.stdout.write(`${v} `) });
+// helper.testRemove(t, order);
+
+const file = './assets/communist.txt';
+const word = 'unite';
+let words = helper.generateWordsArrayFrom(file);
+console.info(`There are ${words.length} words in ${file.match(/[^\\/]+$/)[0]}.`);
+helper.testTreeSearch('BST', BST, words, word);
+helper.testTreeSearch('SST', SST, words, word);
+words = words.sort();
+helper.testTreeSearch('BST2', BST, words, word);
