@@ -5,6 +5,7 @@ const SparseGraph = require('./sparse_graph');
 const DenseGraph = require('./dense_graph');
 const Component = require('./component');
 const Path = require('./path');
+const ShortestPath = require('./shortest_path');
 
 // const N = 20;
 // const M = 100;
@@ -38,7 +39,13 @@ const file = './assets/testG2.txt';
 let g = new SparseGraph(7, false);
 helper.readGraph(g, file);
 g.show();
+console.info('');
 
-const path = new Path(g, 0);
-console.info('\nPath from 0 to 6:');
-path.showPath(6);
+const dfs = new Path(g, 0);
+console.info('DFS: Path from 0 to 6:');
+dfs.showPath(6);
+
+const bfs = new ShortestPath(g, 0);
+console.info('BFS: Path from 0 to 6:');
+bfs.showPath(6);
+

@@ -2,24 +2,29 @@
 
 const assert = require('assert');
 
-class Path {
+class ShortestPath {
   constructor(graph, s) {
     this.G = graph;
     this.visited = (new Array(graph.v())).fill(false);
     this.from = (new Array(graph.v())).fill(-1);
+    this.ord = [...this.from];
 
     assert(s >= 0 && s < this.G.v());
     this.s = s;
-    this.dfs(s);
-  }
+    this.visited[s] = true;
+    this.ord[s] = 0;
 
-  dfs(v) {
-    this.visited[v] = true;
-    const adj = this.G.adj(v);
-    for (let i of adj) {
-      if (!this.visited[i]) {
-        this.from[i] = v;
-        this.dfs(i);
+    const q = [s];
+    while (q.length) {
+      const v = q.shift();
+      const adj = graph.adj(v);
+      for (let i of adj) {
+        if (!this.visited[i]) {
+          q.push(i);
+          this.visited[i] = true;
+          this.from[i] = v;
+          this.ord[i] = this.ord[v] + 1;
+        }
       }
     }
   }
@@ -47,4 +52,4 @@ class Path {
   }
 }
 
-module.exports = Path;
+module.exports = ShortestPath;
