@@ -1,6 +1,6 @@
 'use strict';
 
-const { binarySearch, binarySearchRecur } = require('./binary_search');
+const { binarySearch, binarySearchRecur, floor, ceil } = require('./binary_search');
 const helper = require('./tree_helper');
 const BST = require('./bst');
 const SST = require('./sst');
@@ -36,11 +36,28 @@ let t;
 // // t.inOrder((v) => { process.stdout.write(`${v} `) });
 // helper.testRemove(t, order);
 
-const file = './assets/communist.txt';
-const word = 'unite';
-let words = helper.generateWordsArrayFrom(file);
-console.info(`There are ${words.length} words in ${file.match(/[^\\/]+$/)[0]}.`);
-helper.testTreeSearch('BST', BST, words, word);
-helper.testTreeSearch('SST', SST, words, word);
-words = words.sort();
-helper.testTreeSearch('BST2', BST, words, word);
+// const file = './assets/communist.txt';
+// const word = 'unite';
+// let words = helper.generateWordsArrayFrom(file);
+// console.info(`There are ${words.length} words in ${file.match(/[^\\/]+$/)[0]}.`);
+// helper.testTreeSearch('BST', BST, words, word);
+// helper.testTreeSearch('SST', SST, words, word);
+// words = words.sort();
+// helper.testTreeSearch('BST2', BST, words, word);
+
+const a = [1, 1, 1, 2, 2, 2, 2, 2, 4, 4, 5, 5, 5, 6, 6, 6];
+for (let i = 0; i < 8; i++) {
+  const floorIndex = floor(a, i);
+  process.stdout.write(`Floor index of ${i} is ${floorIndex},`)
+  if (floorIndex >= 0 && floorIndex < a.length) {
+    process.stdout.write(` value: ${a[floorIndex]}.`);
+  }
+  console.info('');
+
+  const ceilIndex = ceil(a, i);
+  process.stdout.write(`Ceil index of ${i} is ${ceilIndex},`)
+  if (ceilIndex >= 0 && ceilIndex < a.length) {
+    process.stdout.write(` value: ${a[ceilIndex]}.`);
+  }
+  console.info('\n');
+}

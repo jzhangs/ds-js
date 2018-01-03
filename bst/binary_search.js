@@ -1,5 +1,7 @@
 'use strict';
 
+const assert = require('assert');
+
 function binarySearch(arr, target) {
   let n = arr.length;
   let l = 0, r = n - 1;
@@ -40,4 +42,42 @@ function binarySearchRecur(arr, target) {
   return _binarySearchRecur(arr, 0, n - 1);
 }
 
-module.exports = { binarySearch, binarySearchRecur }
+function floor(arr, target) {
+  let n = arr.length;
+  let l = -1, r = n - 1;
+  while (l < r) {
+    // Math.ceil here to avoid endless looping
+    let mid = l + Math.ceil((r - l) / 2);
+    if (arr[mid] >= target) {
+      r = mid - 1;
+    } else {
+      l = mid;
+    }
+  }
+
+  assert(l === r);
+  if (l + 1 < n && arr[l + 1] === target) {
+    return l + 1;
+  }
+  return l;
+}
+
+function ceil(arr, target) {
+  let n = arr.length;
+  let l = 0, r = n;
+  while (l < r) {
+    let mid = l + Math.floor((r - l) / 2);
+    if (arr[mid] <= target) {
+      l = mid + 1;
+    } else {
+      r = mid;
+    }
+  }
+  assert(l === r);
+
+  if (l - 1 >= 0 && arr[l - 1] === target) {
+    return l - 1;
+  }
+  return l;
+}
+module.exports = { binarySearch, binarySearchRecur, floor, ceil }
