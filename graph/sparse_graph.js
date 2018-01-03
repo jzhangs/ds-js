@@ -47,6 +47,16 @@ class SparseGraph {
     assert(v >= 0 && v < this.n);
     return this.g[v];
   }
+
+  show() {
+    for (let i = 0; i < this.n; i++) {
+      process.stdout.write(`vertex ${i}:\t`);
+      for (let j = 0; j < this.g[i].length; j++) {
+        process.stdout.write(` ${this.g[i][j]} `);
+      }
+      process.stdout.write('\n');
+    }
+  }
 }
 
 module.exports = SparseGraph;

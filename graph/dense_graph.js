@@ -9,7 +9,7 @@ class DenseGraph {
     this.directed = directed;
     this.g = [];
     for (let i = 0; i < n; i++) {
-      this.g.push((new Array(n)).fill(false));
+      this.g.push((new Array(n)).fill(0));
     }
   }
 
@@ -28,9 +28,9 @@ class DenseGraph {
       return;
     }
 
-    this.g[v][w] = true;
+    this.g[v][w] = 1;
     if (!this.directed) {
-      this.g[w][v] = true;
+      this.g[w][v] = 1;
     }
     this.m++;
   }
@@ -50,6 +50,15 @@ class DenseGraph {
       }
     }
     return adj;
+  }
+
+  show() {
+    for (let i = 0; i < this.n; i++) {
+      for (let j = 0; j< this.n; j++) {
+        process.stdout.write(`${this.g[i][j]}    `);
+      }
+      process.stdout.write('\n');
+    }
   }
 }
 
