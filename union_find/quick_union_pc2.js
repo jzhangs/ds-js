@@ -49,6 +49,13 @@ class UnionFind {
       this.rank[qRoot] +=1;
     }
   }
+
+  show() {
+    for (let i = 0; i < this.count; i++) {
+      process.stdout.write(`${this.parent[i]} `);
+    }
+    process.stdout.write('\n');
+  }
 }
 
 const UF5 = {};
