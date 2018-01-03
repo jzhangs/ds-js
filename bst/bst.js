@@ -268,6 +268,61 @@ class BST {
     const _node = this._ceil(node.left, key);
     return (_node ? _node : node);
   }
+
+  predecessor(key) {
+    const node = this.search(key);
+    if (!node) {
+      return null;
+    }
+
+    if (node.left) {
+      return this._max(node.left).key;
+    }
+
+    const pre = this.predecessorFromAncestor(this.root, key);
+    return pre ? pre.key : null;
+  }
+
+  predecessorFromAncestor(node, key) {
+    if (node.key === key) {
+      return null;
+    }
+    if (key < node.key) {
+      return this.predecessorFromAncestor(node.left, key);
+    } else {
+      assert(key > node.key);
+      const _node = this.predecessorFromAncestor(node.right, key);
+      return _node ? _node : node;
+    }
+  }
+
+  successor(key) {
+    const node = this.search(key);
+    if (!node) {
+      return null;
+    }
+
+    if (node.right) {
+      return this._min(node.right).key;
+    }
+
+    const suc = this.successorFromAncestor(this.root, key);
+    return suc ? suc.key : null;
+  }
+
+  successorFromAncestor(node, key) {
+    if (node.key === key) {
+      return null;
+    }
+
+    if (key > node.key) {
+      return this.successorFromAncestor(node.right, key);
+    } else {
+      assert(key < node.key);
+      const _node = this.successorFromAncestor(node.left, key);
+      return _node ? _node : node;
+    }
+  }
 }
 
 module.exports = BST;

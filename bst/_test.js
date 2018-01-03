@@ -64,9 +64,9 @@ const SST = require('./sst');
 //   console.info('\n');
 // }
 
-const n = 1000;
-const m = 100;
-let arr = helper.generateRandomOrderedArray(n, 0, m);
+// const n = 1000;
+// const m = 100;
+// let arr = helper.generateRandomOrderedArray(n, 0, m);
 
 // console.info(arr.toString());
 // for (let i = -1; i <= m + 1; i++) {
@@ -90,48 +90,81 @@ let arr = helper.generateRandomOrderedArray(n, 0, m);
 // }
 // console.info('test completed:)');
 
+// const N = 1000;
+// const min = 0, max = N - 2;
+// let t = helper.generateTreeWithEvenNumbers(BST, N);
+
+// for (let i = 0; i <= N; i++) {
+//   const floorKey = t.floor(i);
+//   if (i % 2 === 0) {
+//     if (i >= 0 && i < N) {
+//       assert(floorKey === i);
+//     } else if (i < 0) {
+//       assert(floorKey === null);
+//     } else {
+//       assert(floorKey === max);
+//     }
+//   } else {
+//     if (i - 1 >= 0 && i - 1 < N) {
+//       assert(floorKey === i - 1);
+//     } else if (i - 1 < 0) {
+//       assert(floorKey === null);
+//     } else {
+//       assert(floorKey === max);
+//     }
+//   }
+//   console.info(`The floor of ${i} is ${floorKey}.`)
+
+//   const ceilKey = t.ceil(i);
+//   if (i % 2 === 0) {
+//     if (i >= 0 && i < N) {
+//       assert(ceilKey === i);
+//     } else if (i < 0) {
+//       assert(ceilKey === min);
+//     } else {
+//       assert(ceilKey === null);
+//     }
+//   } else {
+//     if (i + 1 >= 0 && i + 1 < N) {
+//       assert(ceilKey === i + 1);
+//     } else if (i + 1 < 0) {
+//       assert(ceilKey === min);
+//     } else {
+//       assert(ceilKey === null);
+//     }
+//   }
+//   console.info(`The ceil of ${i} is ${ceilKey}.`)
+// }
+
 const N = 1000;
-const min = 0, max = N - 2;
-let t = helper.generateTreeWithEvenNumbers(BST, N);
+const arr = helper.generateRandomOrder(N);
+let t = new BST();
+for (let i = 0; i < arr.length; i++) {
+  t.insert(arr[i], arr[i]);
+}
 
-for (let i = 0; i <= N; i++) {
-  const floorKey = t.floor(i);
-  if (i % 2 === 0) {
-    if (i >= 0 && i < N) {
-      assert(floorKey === i);
-    } else if (i < 0) {
-      assert(floorKey === null);
-    } else {
-      assert(floorKey === max);
-    }
-  } else {
-    if (i - 1 >= 0 && i - 1 < N) {
-      assert(floorKey === i - 1);
-    } else if (i - 1 < 0) {
-      assert(floorKey === null);
-    } else {
-      assert(floorKey === max);
-    }
-  }
-  console.info(`The floor of ${i} is ${floorKey}.`)
+// t.preOrder((v) => { process.stdout.write(`${v} `) });
+// console.info('');
+// t.inOrder((v) => { process.stdout.write(`${v} `) });
+// console.info('');
 
-  const ceilKey = t.ceil(i);
-  if (i % 2 === 0) {
-    if (i >= 0 && i < N) {
-      assert(ceilKey === i);
-    } else if (i < 0) {
-      assert(ceilKey === min);
-    } else {
-      assert(ceilKey === null);
-    }
+for (let i = 0; i< arr.length; i++) {
+  if (i === 0) {
+    assert(t.predecessor(i) === null);
+    console.info(`The predecessor of 0 is NULL.`);
   } else {
-    if (i + 1 >= 0 && i + 1 < N) {
-      assert(ceilKey === i + 1);
-    } else if (i + 1 < 0) {
-      assert(ceilKey === min);
-    } else {
-      assert(ceilKey === null);
-    }
+    // console.info(t.predecessor(i));
+    assert(t.predecessor(i) === i - 1);
+    console.info(`The predecessor of ${i} is ${i-1}.`);
   }
-  console.info(`The ceil of ${i} is ${ceilKey}.`)
+}
+
+for (let i = 0; i< arr.length; i++) {
+  if (i === N - 1) {
+    assert(t.successor(i) === null);
+    console.info(`The successor of ${i} is NULL.`);
+  } else {
+    assert(t.successor(i) === i + 1);
+    console.info(`The successor of  ${i} is ${i+1}.`);
+  }
 }
