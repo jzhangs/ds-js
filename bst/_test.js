@@ -1,6 +1,8 @@
 'use strict';
 
-const { binarySearch, binarySearchRecur, floor, ceil } = require('./binary_search');
+const assert = require('assert');
+const BinarySearch = require('./binary_search');
+const LinearSearch = require('./linear_search');
 const helper = require('./tree_helper');
 const BST = require('./bst');
 const SST = require('./sst');
@@ -9,8 +11,8 @@ const SST = require('./sst');
 
 // let arr1 = helper.generateOrderArray(n);
 // let arr2 = [...arr1];
-// helper.testSearch('Binary Search          ', binarySearch, arr1);
-// helper.testSearch('Binary Search Recursion', binarySearchRecur, arr2);
+// helper.testSearch('Binary Search          ', BinarySearch.search, arr1);
+// helper.testSearch('Binary Search Recursion', BinarySearch.searchRecur, arr2);
 
 // const file = './assets/bible.txt';
 // const word = 'god';
@@ -19,7 +21,7 @@ const SST = require('./sst');
 // helper.testTreeSearch('BST', BST, words, word);
 // helper.testTreeSearch('SST', SST, words, word);
 
-let t;
+// let t;
 // t = helper.generateTree(BST, 10, 100);
 // helper.testTraverse(t);
 
@@ -45,19 +47,32 @@ let t;
 // words = words.sort();
 // helper.testTreeSearch('BST2', BST, words, word);
 
-const a = [1, 1, 1, 2, 2, 2, 2, 2, 4, 4, 5, 5, 5, 6, 6, 6];
-for (let i = 0; i < 8; i++) {
-  const floorIndex = floor(a, i);
-  process.stdout.write(`Floor index of ${i} is ${floorIndex},`)
-  if (floorIndex >= 0 && floorIndex < a.length) {
-    process.stdout.write(` value: ${a[floorIndex]}.`);
-  }
-  console.info('');
+// const a = [1, 1, 1, 2, 2, 2, 2, 2, 4, 4, 5, 5, 5, 6, 6, 6];
+// for (let i = 0; i < 8; i++) {
+//   const floorIndex = BinarySearch.floor(a, i);
+//   process.stdout.write(`Floor index of ${i} is ${floorIndex},`)
+//   if (floorIndex >= 0 && floorIndex < a.length) {
+//     process.stdout.write(` value: ${a[floorIndex]}.`);
+//   }
+//   console.info('');
 
-  const ceilIndex = ceil(a, i);
-  process.stdout.write(`Ceil index of ${i} is ${ceilIndex},`)
-  if (ceilIndex >= 0 && ceilIndex < a.length) {
-    process.stdout.write(` value: ${a[ceilIndex]}.`);
-  }
-  console.info('\n');
+//   const ceilIndex = BinarySearch.ceil(a, i);
+//   process.stdout.write(`Ceil index of ${i} is ${ceilIndex},`)
+//   if (ceilIndex >= 0 && ceilIndex < a.length) {
+//     process.stdout.write(` value: ${a[ceilIndex]}.`);
+//   }
+//   console.info('\n');
+// }
+
+const n = 1000;
+const m = 100;
+let arr = helper.generateRandomOrderedArray(n, 0, m);
+
+// console.info(arr.toString());
+for(let i = -1 ; i <= m + 1 ; i ++) {
+    assert(BinarySearch.lowerBound(arr, n, i) ===
+           LinearSearch.lowerBound(arr, n, i));
+    assert(BinarySearch.upperBound(arr, n, i) ===
+           LinearSearch.upperBound(arr, n, i));
 }
+console.info('test completed:)');

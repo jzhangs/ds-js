@@ -54,6 +54,14 @@ TreeHelper.prototype = {
     return shuffle(order);
   },
 
+  generateRandomOrderedArray(n, l, r) {
+    const arr = [];
+    for (let i = 0; i < n; i++)
+      arr.push(l + Math.floor(Math.random() * (r - l + 1)));
+    arr.sort((a, b) => (a - b));
+    return arr;
+  },
+
   testSearch(searchName, search, arr) {
     const n = arr.length;
     const begin = performance.now();
