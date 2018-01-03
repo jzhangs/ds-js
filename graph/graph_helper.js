@@ -26,6 +26,18 @@ GraphHelper.prototype = {
     });
   },
 
+  generateRandomEdge(graph, v, e) {
+    const p = 2 * e / (v * (v - 1));
+    for (let i = 0; i < v; i++) {
+      for (let j = i + 1; j < v; j++) {
+        const _v = Math.random();
+        if (_v < p) {
+          graph.addEdge(i, j);
+        }
+      }
+    }
+  },
+
   testAddEdge(Graph, N, M) {
     const g = new Graph(N, false);
     for (let i = 0; i < M; i++) {
@@ -33,7 +45,7 @@ GraphHelper.prototype = {
       let b = Math.floor(Math.random() * N);
       g.addEdge(a, b);
     }
-    
+
     for (let v = 0; v < N; v++) {
       process.stdout.write(`${v} : `);
       let adj = g.adj(v);
@@ -42,7 +54,7 @@ GraphHelper.prototype = {
       }
       process.stdout.write('\n');
     }
-    
+
     console.info('');
   }
 }
