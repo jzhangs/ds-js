@@ -69,10 +69,24 @@ const m = 100;
 let arr = helper.generateRandomOrderedArray(n, 0, m);
 
 // console.info(arr.toString());
-for(let i = -1 ; i <= m + 1 ; i ++) {
-    assert(BinarySearch.lowerBound(arr, n, i) ===
-           LinearSearch.lowerBound(arr, n, i));
-    assert(BinarySearch.upperBound(arr, n, i) ===
-           LinearSearch.upperBound(arr, n, i));
+// for (let i = -1; i <= m + 1; i++) {
+//   assert(BinarySearch.lowerBound(arr, i) ===
+//     LinearSearch.lowerBound(arr, i));
+//   assert(BinarySearch.upperBound(arr, i) ===
+//     LinearSearch.upperBound(arr, i));
+// }
+// console.info('test completed:)');
+
+
+// console.info(arr.toString());
+for (let i = -1; i <= m + 1; i++) {
+  assert(BinarySearch.firstGreaterOrEqual(arr, i) ===
+    LinearSearch.firstGreaterOrEqual(arr, i));
+  assert(BinarySearch.firstGreaterThan(arr, i) ===
+    LinearSearch.firstGreaterThan(arr, i));
+  assert(BinarySearch.lastLessOrEqual(arr, i) ===
+    LinearSearch.lastLessOrEqual(arr, i));
+  assert(BinarySearch.lastLessThan(arr, i) ===
+    LinearSearch.lastLessThan(arr, i));
 }
 console.info('test completed:)');
