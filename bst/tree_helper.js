@@ -3,7 +3,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const { performance } = require('perf_hooks');
-const { _swap } = require('../util');
+const { _swap, _shuffle } = require('../util');
 
 const TreeHelper = function () { };
 
@@ -27,6 +27,22 @@ TreeHelper.prototype = {
     return words;
   },
 
+  generateRandomOrder(n) {
+    const order = [];
+    for (let i = 0; i < n; i++) {
+      order.push(i);
+    }
+    return _shuffle(order);
+  },
+
+  generateRandomOrderedArray(n, l, r) {
+    const arr = [];
+    for (let i = 0; i < n; i++)
+      arr.push(l + Math.floor(Math.random() * (r - l + 1)));
+    arr.sort((a, b) => (a - b));
+    return arr;
+  },
+
   generateTree(Tree, n = 10, m) {
     m = m || n;
     const t = new Tree();
@@ -38,28 +54,18 @@ TreeHelper.prototype = {
     return t;
   },
 
-  generateRandomOrder(n) {
-    function shuffle(arr, n) {
-      n = n || arr.length;
-      for (let i = n - 1; i >= 0; i--) {
-        let x = Math.floor(Math.random() * (i + 1));
-        _swap(arr, i, x);
-      }
-      return arr;
-    }
-    const order = [];
-    for (let i = 0; i < n; i++) {
-      order.push(i);
-    }
-    return shuffle(order);
-  },
-
-  generateRandomOrderedArray(n, l, r) {
+  generateTreeWithEvenNumbers(Tree, n) {
     const arr = [];
-    for (let i = 0; i < n; i++)
-      arr.push(l + Math.floor(Math.random() * (r - l + 1)));
-    arr.sort((a, b) => (a - b));
-    return arr;
+    for (let i = 0; i <n ; i+=2) {
+      arr.push(i);
+    }
+    _shuffle(arr);
+
+    const t = new Tree();
+    for (let i = 0; i< arr.length; i++) {
+      t.insert(arr[i], arr[i]);
+    }
+    return t;
   },
 
   testSearch(searchName, search, arr) {

@@ -131,7 +131,7 @@ class BST {
 
   min() {
     assert(this.count !== 0);
-    return  this._min(this.root).key;
+    return this._min(this.root).key;
   }
 
   _min(node) {
@@ -186,7 +186,7 @@ class BST {
     node.right = this._removeMax(node.right);
     return node;
   }
-  
+
   remove(key) {
     this.root = this._remove(this.root, key);
   }
@@ -225,6 +225,49 @@ class BST {
     }
   }
 
+  floor(key) {
+    if (this.count === 0 || key < this.min()) {
+      return null;
+    }
+    return this._floor(this.root, key).key;
+  }
+
+  _floor(node, key) {
+    if (!node) {
+      return null;
+    }
+    if (node.key === key) {
+      return node;
+    }
+    if (node.key > key) {
+      return this._floor(node.left, key);
+    }
+
+    const _node = this._floor(node.right, key);
+    return (_node ? _node : node);
+  }
+
+  ceil(key) {
+    if (this.count === 0 || key > this.max()) {
+      return null;
+    }
+    return this._ceil(this.root, key).key;
+  }
+
+  _ceil(node, key) {
+    if (!node) {
+      return null;
+    }
+    if (node.key === key) {
+      return node;
+    }
+    if (node.key < key) {
+      return this._ceil(node.right, key);
+    }
+
+    const _node = this._ceil(node.left, key);
+    return (_node ? _node : node);
+  }
 }
 
-module.exports = BST ;
+module.exports = BST;

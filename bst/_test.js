@@ -77,16 +77,61 @@ let arr = helper.generateRandomOrderedArray(n, 0, m);
 // }
 // console.info('test completed:)');
 
-
 // console.info(arr.toString());
-for (let i = -1; i <= m + 1; i++) {
-  assert(BinarySearch.firstGreaterOrEqual(arr, i) ===
-    LinearSearch.firstGreaterOrEqual(arr, i));
-  assert(BinarySearch.firstGreaterThan(arr, i) ===
-    LinearSearch.firstGreaterThan(arr, i));
-  assert(BinarySearch.lastLessOrEqual(arr, i) ===
-    LinearSearch.lastLessOrEqual(arr, i));
-  assert(BinarySearch.lastLessThan(arr, i) ===
-    LinearSearch.lastLessThan(arr, i));
+// for (let i = -1; i <= m + 1; i++) {
+//   assert(BinarySearch.firstGreaterOrEqual(arr, i) ===
+//     LinearSearch.firstGreaterOrEqual(arr, i));
+//   assert(BinarySearch.firstGreaterThan(arr, i) ===
+//     LinearSearch.firstGreaterThan(arr, i));
+//   assert(BinarySearch.lastLessOrEqual(arr, i) ===
+//     LinearSearch.lastLessOrEqual(arr, i));
+//   assert(BinarySearch.lastLessThan(arr, i) ===
+//     LinearSearch.lastLessThan(arr, i));
+// }
+// console.info('test completed:)');
+
+const N = 1000;
+const min = 0, max = N - 2;
+let t = helper.generateTreeWithEvenNumbers(BST, N);
+
+for (let i = 0; i <= N; i++) {
+  const floorKey = t.floor(i);
+  if (i % 2 === 0) {
+    if (i >= 0 && i < N) {
+      assert(floorKey === i);
+    } else if (i < 0) {
+      assert(floorKey === null);
+    } else {
+      assert(floorKey === max);
+    }
+  } else {
+    if (i - 1 >= 0 && i - 1 < N) {
+      assert(floorKey === i - 1);
+    } else if (i - 1 < 0) {
+      assert(floorKey === null);
+    } else {
+      assert(floorKey === max);
+    }
+  }
+  console.info(`The floor of ${i} is ${floorKey}.`)
+
+  const ceilKey = t.ceil(i);
+  if (i % 2 === 0) {
+    if (i >= 0 && i < N) {
+      assert(ceilKey === i);
+    } else if (i < 0) {
+      assert(ceilKey === min);
+    } else {
+      assert(ceilKey === null);
+    }
+  } else {
+    if (i + 1 >= 0 && i + 1 < N) {
+      assert(ceilKey === i + 1);
+    } else if (i + 1 < 0) {
+      assert(ceilKey === min);
+    } else {
+      assert(ceilKey === null);
+    }
+  }
+  console.info(`The ceil of ${i} is ${ceilKey}.`)
 }
-console.info('test completed:)');
