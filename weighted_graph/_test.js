@@ -4,6 +4,7 @@ const helper = require('./wgraph_helper');
 const DenseWeightedGraph = require('./dense_wgraph');
 const SparseWeightedGraph = require('./sparse_wgraph');
 const LazyPrimMST = require('./lazy_prim_mst');
+const PrimMST = require('./prim_mst');
 
 const file = './assets/testG1.txt';
 const V = 8;
@@ -23,8 +24,16 @@ helper.readWGraph(g, file);
 
 console.info(`Test Lazy Prim MST:`);
 const lazyPrimMST = new LazyPrimMST(g)
-const mst = lazyPrimMST.mstEdges();
+let mst = lazyPrimMST.mstEdges();
 for (let i = 0; i < mst.length; i++) {
   console.info(`${mst[i]}`);
 }
-console.info(`The MST weight is: ${lazyPrimMST.result().toFixed(2)}`);
+console.info(`The MST weight is: ${lazyPrimMST.result().toFixed(2)}\n`);
+
+console.info(`Test Prim MST:`);
+const primMST = new PrimMST(g)
+mst = primMST.mstEdges();
+for (let i = 0; i < mst.length; i++) {
+  console.info(`${mst[i]}`);
+}
+console.info(`The MST weight is: ${primMST.result().toFixed(2)}`);

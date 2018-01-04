@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const fs = require('fs');
+const { performance } = require('perf_hooks');
 
 const WGraphHelper = function () { };
 
@@ -19,7 +20,6 @@ WGraphHelper.prototype = {
         assert(v === graph.v());
       } else {
         let [a, b, weight] = arr.map((v) => {return parseFloat(v)});
-        // weight = weight.toFixed(2);
         assert(a >= 0 && a < v);
         assert(b >= 0 && b < v);
         graph.addEdge(a, b, weight);
@@ -55,8 +55,14 @@ WGraphHelper.prototype = {
       }
       process.stdout.write('\n');
     }
-
     console.info('');
+  },
+
+  testPerf(name, Func, g) {
+    const begin = performance.now();
+    const mst = new Func(g);
+    const end = performance.now();
+    console.info(`Test for ${name}: ${end - begin} ms.`);
   }
 }
 
