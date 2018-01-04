@@ -19,7 +19,7 @@ WGraphHelper.prototype = {
         assert(v === graph.v());
       } else {
         let [a, b, weight] = arr.map((v) => {return parseFloat(v)});
-        weight = weight.toFixed(2);
+        // weight = weight.toFixed(2);
         assert(a >= 0 && a < v);
         assert(b >= 0 && b < v);
         graph.addEdge(a, b, weight);

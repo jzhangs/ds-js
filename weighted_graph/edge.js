@@ -22,8 +22,16 @@ class Edge {
   }
 
   other(x) {
-    assert(x === a || x === b);
-    return x === a ? b : a;
+    assert(x === this.a || x === this.b);
+    return x === this.a ? this.b : this.a;
+  }
+
+  valueOf() {
+    return this.weight;
+  }
+
+  toString() {
+    return `${this.a}-${this.b}: ${this.weight}`;
   }
 }
 
