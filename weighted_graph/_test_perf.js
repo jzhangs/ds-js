@@ -4,6 +4,7 @@ const helper = require('./wgraph_helper');
 const SparseWeightedGraph = require('./sparse_wgraph');
 const LazyPrimMST = require('./lazy_prim_mst');
 const PrimMST = require('./prim_mst');
+const KruskalMST = require('./kruskal_mst');
 
 const file1 = './assets/testG1.txt';
 const V1 = 8;
@@ -29,14 +30,20 @@ helper.readWGraph(g3, file3);
 const g4 = new SparseWeightedGraph(V4, false);
 helper.readWGraph(g4, file4);
 
-console.info(`Test Lazy Prim MST:`);
+console.info(`\nTest Lazy Prim MST:`);
 helper.testPerf('G1', LazyPrimMST, g1);
 helper.testPerf('G2', LazyPrimMST, g2);
 helper.testPerf('G3', LazyPrimMST, g3);
 helper.testPerf('G4', LazyPrimMST, g4);
 
-console.info(`Test Prim MST:`);
+console.info(`\nTest Prim MST:`);
 helper.testPerf('G1', PrimMST, g1);
 helper.testPerf('G2', PrimMST, g2);
 helper.testPerf('G3', PrimMST, g3);
 helper.testPerf('G4', PrimMST, g4);
+
+console.info(`\nTest Kruskal MST:`);
+helper.testPerf('G1', KruskalMST, g1);
+helper.testPerf('G2', KruskalMST, g2);
+helper.testPerf('G3', KruskalMST, g3);
+helper.testPerf('G4', KruskalMST, g4);
