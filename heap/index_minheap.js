@@ -77,8 +77,8 @@ class IndexMinHeap {
   extractMinIndex() {
     assert(this.count > 0);
 
-    const { data, indexes } = this;
-    let ret = indexs[1] - 1;
+    const { data, indexes, reverse } = this;
+    let ret = indexes[1] - 1;
     _swap(indexes, 1, this.count);
     reverse[indexes[1]] = 1;
     reverse[indexes[this.count]] = 0;
@@ -89,7 +89,7 @@ class IndexMinHeap {
 
   contain(i) {
     assert(i >= 0 && i <= this.capacity - 1);
-    return reverse[i + 1] !== 0;
+    return this.reverse[i + 1] !== 0;
   }
 
   getItem(i) {
@@ -103,16 +103,17 @@ class IndexMinHeap {
     this.data[i] = newItem;
 
     // find indexes[j] === i, then shiftUp(j) and shiftDown(j);
-    // for (let j = 1; j <= this.count; j++) {
-    //   if (indexes[j] === i) {
-    //     this._shiftUp(j);
-    //     this._shiftDown(j);
-    //     return;
-    //   }
-    // }
-    let j = reverse[i];
-    this._shiftUp(j);
-    this._shiftDown(j);
+    for (let j = 1; j <= this.count; j++) {
+      if (this.indexes[j] === i) {
+        this._shiftUp(j);
+        this._shiftDown(j);
+        return;
+      }
+    }
+    // !!! can't write as this
+    // let j = this.reverse[i];
+    // this._shiftUp(j);
+    // this._shiftDown(j);
   }
 
   testIndexes() {
