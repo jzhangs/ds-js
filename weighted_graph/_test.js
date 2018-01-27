@@ -7,6 +7,7 @@ const LazyPrimMST = require('./lazy_prim_mst');
 const PrimMST = require('./prim_mst');
 const KruskalMST = require('./kruskal_mst');
 const Dijkstra = require('./djkstra');
+const BellmanFord = require('./bellman_ford');
 
 // const file = './assets/testG1.txt';
 // const V = 8;
@@ -48,19 +49,48 @@ const Dijkstra = require('./djkstra');
 // }
 // console.info(`The MST weight is: ${kruskalMST.result().toFixed(2)}\n`);
 
-const file = './assets/testG1_1.txt';
+// const file = './assets/testG1_1.txt';
+// const V = 5;
+// const g = new SparseWeightedGraph(V, true);
+// helper.readWGraph(g, file);
+
+// console.info('Test Dijkstra: ');
+// const dij = new Dijkstra(g, 0);
+// for (let i = 1; i < V; i++) {
+//   if (dij.hasPathTo(i)) {
+//     console.info(`Shortest Path to ${i} : ${dij.shortestPathTo(i)}`);
+//     dij.showPath(i);
+//   } else {
+//     console.info(`No path to ${i}.`);
+//   }
+//   console.info('-----------------');
+// }
+
+const file = './assets/testG2_2.txt';
+// const file = './assets/testG_negative_circle.txt';
 const V = 5;
 const g = new SparseWeightedGraph(V, true);
 helper.readWGraph(g, file);
 
-console.info('Test Dijkstra: ');
-const dij = new Dijkstra(g, 0);
-for (let i = 1; i < V; i++) {
-  if (dij.hasPathTo(i)) {
-    console.info(`Shortest Path to ${i} : ${dij.shortestPathTo(i)}`);
-    dij.showPath(i);
-  } else {
-    console.info(`No path to ${i}.`);
+console.info('Test Bellman-Ford: ');
+const s = 0;
+const bellmanFord = new BellmanFord(g, s);
+if (bellmanFord.negetiveCycle()) {
+  console.info('The graph contain negative cycle!');
+} else {
+  for (let i = 0; i < V; i++) {
+    if (i === s) {
+      continue;
+    }
+
+    if (bellmanFord.hasPathTo(i)) {
+      console.info(`Shortest Path to ${i} : ${bellmanFord.shortestPathTo(i)}`);
+      bellmanFord.showPath(i);
+    } else {
+      console.info(`No path to ${i}.`);
+    }
+    console.info('-----------------');
   }
-  console.info('-----------------');
 }
+
+

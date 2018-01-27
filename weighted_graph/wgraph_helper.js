@@ -11,7 +11,7 @@ WGraphHelper.prototype = {
     let v, e;
     const text = fs.readFileSync(file, 'utf8');
     text.split(/\r?\n/).forEach((line) => {
-      const arr = line.trim().match(/[.\d]+/g);
+      const arr = line.trim().match(/[.-\d]+/g);
       if (!arr) {
         return;
       }
