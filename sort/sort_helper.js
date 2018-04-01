@@ -31,9 +31,9 @@ SortHelper.prototype = {
 
   testSort(sortName, sort, arr) {
     const begin = performance.now();
-    sort(arr);
+    const res = sort(arr) || arr;
     const end = performance.now();
-    assert(this.isSorted(arr));
+    assert(this.isSorted(res));
     console.info(`    ${sortName}: ${arr.length} items sorted in ${end - begin} ms.`);
   },
 
